@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dyndnsupdate", "dyndnsupdate\dyndnsupdate.csproj", "{55D114F6-A582-4DB2-B413-B9F3B32DFBCF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55D114F6-A582-4DB2-B413-B9F3B32DFBCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55D114F6-A582-4DB2-B413-B9F3B32DFBCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55D114F6-A582-4DB2-B413-B9F3B32DFBCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55D114F6-A582-4DB2-B413-B9F3B32DFBCF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <AssemblyTitle>DynDnsUpdate</AssemblyTitle>
+        <Description>A utility to update the public IP address for your https://dyndns.it/ account</Description>
+        <Authors>Paolo Iommarini</Authors>
+        <Copyright>Copyright © 2023, Paolo Iommarini</Copyright>
+        <Version>1.0.0.0</Version>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CmdLineArgsParser" Version="0.7.4" />
+    </ItemGroup>
+
+</Project>
