@@ -9,7 +9,7 @@
 
     <PropertyGroup>
         <AssemblyTitle>DynDnsUpdate</AssemblyTitle>
-        <Description>A utility to update the public IP address for your https://dyndns.it/ account</Description>
+        <Description>A utility to update the public IP address for your https://dyndns.it/ or https://dynv6.com account</Description>
         <Authors>Paolo Iommarini</Authors>
         <Copyright>Copyright © 2023, Paolo Iommarini</Copyright>
         <Version>1.0.0.0</Version>
