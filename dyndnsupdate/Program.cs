@@ -61,7 +61,7 @@ public static class Program
 
         using var httpClient = new HttpClient();
 
-        var ipAddress = GetIpAddress(httpClient);
+        var ipAddress = GetIpv4Address(httpClient);
         if (string.IsNullOrEmpty(ipAddress)) {
             Console.WriteLine("Cannot get public IP address");
             return -1;
@@ -79,14 +79,38 @@ public static class Program
         return -1;
     }
 
-    private static string GetIpAddress(HttpClient client)
+    private static string GetIpv4Address(HttpClient client)
     {
         string[] urls =
         {
             "https://ipinfo.io/ip",
             "https://checkip.amazonaws.com/",
+            "https://ipv4.seeip.org",
             "https://icanhazip.com",
             "https://wtfismyip.com/text"
+        };
+
+        foreach (var url in urls) {
+            try {
+                var ipAddress = client.GetStringAsync(url).Result;
+                if (!string.IsNullOrEmpty(ipAddress)) {
+                    return ipAddress
+                        .Replace("\r", string.Empty)
+                        .Replace("\n", string.Empty)
+                        .Trim();
+                }
+            } catch {
+                // ignored
+            }
+        }
+        return string.Empty;
+    }
+
+    private static string GetIpv6Address(HttpClient client)
+    {
+        string[] urls =
+        {
+            "https://ipv6.seeip.org",
         };
 
         foreach (var url in urls) {
@@ -153,7 +177,12 @@ public static class Program
 
     private static int UpdateDynv6Com(HttpClient httpClient, Options options, string ipAddress)
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, $"https://ipv4.dynv6.com/api/update?zone={options.Hostname}&ipv4={ipAddress}&token={options.Token}");
+        var ipv6Address = GetIpv6Address(httpClient);
+
+        var url = $"https://dynv6.com/api/update?zone={options.Hostname}&ipv4={ipAddress}&token={options.Token}";
+        if (!string.IsNullOrEmpty(ipv6Address))
+            url = $"{url}&ipv6={ipv6Address}";
+        var request = new HttpRequestMessage(HttpMethod.Get, url);
         var response = httpClient.Send(request);
         var res = response.Content.ReadAsStringAsync().Result;
         if (!response.IsSuccessStatusCode) {
