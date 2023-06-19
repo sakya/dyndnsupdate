@@ -8,7 +8,7 @@ public static class Program
     {
         var parser = new CmdLineArgsParser.Parser();
         if (args.Length == 0) {
-            parser.ShowInfo(true);
+            parser.ShowInfo();
             parser.ShowUsage<Options>();
             return -1;
         }
@@ -33,7 +33,7 @@ public static class Program
 
         Console.WriteLine($"Public IP address: {ipAddress}");
         var basicAuth = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes($"{options.Username}:{options.Password}"));
-        var request = new HttpRequestMessage(HttpMethod.Get, $"https://update.dyndns.it/update.dyndns.it/?hostname={options.Hostname}&myip={ipAddress}");
+        var request = new HttpRequestMessage(HttpMethod.Get, $"https://update.dyndns.it/?hostname={options.Hostname}&myip={ipAddress}");
         request.Headers.Authorization = new AuthenticationHeaderValue("Basic", basicAuth);
 
         var response = httpClient.Send(request);
@@ -43,6 +43,10 @@ public static class Program
             return -1;
         }
 
+        if (!res.StartsWith("good ")) {
+            Console.WriteLine($"Failed to update IP address: {res}");
+            return -1;
+        }
         Console.WriteLine($"IP address updated: {res}");
         return 0;
     }
