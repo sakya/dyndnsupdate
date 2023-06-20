@@ -111,6 +111,7 @@ public static class Program
         string[] urls =
         {
             "https://ipv6.seeip.org",
+            "https://ipv6.icanhazip.com/"
         };
 
         foreach (var url in urls) {
