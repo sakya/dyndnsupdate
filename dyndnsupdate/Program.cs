@@ -32,8 +32,12 @@ public static class Program
 
         var service = GetDynDnsService(options.Hostname!);
         if (service == DynDnsService.None) {
-            Console.WriteLine("Cannot get service from hostname");
-            return -1;
+            if (!string.IsNullOrEmpty(options.Token)) {
+                service = DynDnsService.Dynv6Com;
+            } else {
+                Console.WriteLine("Cannot get service from hostname");
+                return -1;
+            }
         }
 
         var optionsOk = true;
