@@ -162,10 +162,10 @@ public static class Program
     private static int UpdateDynDnsIt(HttpClient httpClient, Options options, string ipAddress)
     {
         var basicAuth = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes($"{options.Username}:{options.Password}"));
-        var request = new HttpRequestMessage(HttpMethod.Get, $"https://update.dyndns.it/?hostname={options.Hostname}&myip={ipAddress}");
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"https://update.dyndns.it/?hostname={options.Hostname}&myip={ipAddress}");
         request.Headers.Authorization = new AuthenticationHeaderValue("Basic", basicAuth);
 
-        var response = httpClient.Send(request);
+        using var response = httpClient.Send(request);
         var res = response.Content.ReadAsStringAsync().Result;
         if (!response.IsSuccessStatusCode) {
             Console.WriteLine($"Failed to update IP address: {res}");
@@ -187,8 +187,8 @@ public static class Program
         var url = $"https://dynv6.com/api/update?zone={options.Hostname}&ipv4={ipAddress}&token={options.Token}";
         if (!string.IsNullOrEmpty(ipv6Address))
             url = $"{url}&ipv6={ipv6Address}";
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-        var response = httpClient.Send(request);
+        using var request = new HttpRequestMessage(HttpMethod.Get, url);
+        using var response = httpClient.Send(request);
         var res = response.Content.ReadAsStringAsync().Result;
         if (!response.IsSuccessStatusCode) {
             Console.WriteLine($"Failed to update IP address: {res}");
