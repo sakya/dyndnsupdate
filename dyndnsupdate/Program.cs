@@ -73,14 +73,12 @@ public static class Program
 
         Console.WriteLine($"Public IP address: {ipAddress}");
 
-        switch (service) {
-            case DynDnsService.DynDnsIt:
-                return UpdateDynDnsIt(httpClient, options, ipAddress);
-            case DynDnsService.Dynv6Com:
-                return UpdateDynv6Com(httpClient, options, ipAddress);
-        }
-
-        return -1;
+        return service switch
+        {
+            DynDnsService.DynDnsIt => UpdateDynDnsIt(httpClient, options, ipAddress),
+            DynDnsService.Dynv6Com => UpdateDynv6Com(httpClient, options, ipAddress),
+            _ => -1
+        };
     }
 
     private static string GetIpv4Address(HttpClient client)
